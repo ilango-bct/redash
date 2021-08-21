@@ -34,36 +34,7 @@ ARG skip_dev_deps
 RUN useradd --create-home redash
 
 # Ubuntu packages
-RUN apt-get update && \
-  apt-get install -y \
-    curl \
-    gnupg \
-    build-essential \
-    pwgen \
-    libffi-dev \
-    sudo \
-    git-core \
-    wget \
-    # Postgres client
-    libpq-dev \
-    # ODBC support:
-    g++ unixodbc-dev \
-    # for SAML
-    xmlsec1 \
-    # Additional packages required for data sources:
-    libssl-dev \
-    default-libmysqlclient-dev \
-    freetds-dev \
-    libsasl2-dev \
-    unzip \
-    libsasl2-modules-gssapi-mit && \
-  # MSSQL ODBC Driver:  
-  curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
-  curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
-  apt-get update && \
-  ACCEPT_EULA=Y apt-get install -y msodbcsql17 && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+RUN apt-get 'update && apt-get install -y curl gnupg build-essential pwgen libffi-dev sudo git-core wget libpq-dev g++ unixodbc-dev xmlsec1 libssl-dev default-libmysqlclient-dev freetds-dev libsasl2-dev unzip libsasl2-modules-gssapi-mit && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list && apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17 && apt-get clean && rm -rf /var/lib/apt/lists/*'
 
 ARG databricks_odbc_driver_url=https://databricks.com/wp-content/uploads/2.6.10.1010-2/SimbaSparkODBC-2.6.10.1010-2-Debian-64bit.zip
 ADD $databricks_odbc_driver_url /tmp/simba_odbc.zip
