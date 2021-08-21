@@ -34,7 +34,7 @@ ARG skip_dev_deps
 RUN useradd --create-home redash
 
 # Ubuntu packages
-RUN apt-get update && \
+RUN 'apt-get update && \
   apt-get install -y \
     curl \
     gnupg \
@@ -63,7 +63,7 @@ RUN apt-get update && \
   apt-get update && \
   ACCEPT_EULA=Y apt-get install -y msodbcsql17 && \
   apt-get clean && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/*'
 
 ARG databricks_odbc_driver_url=https://databricks.com/wp-content/uploads/2.6.10.1010-2/SimbaSparkODBC-2.6.10.1010-2-Debian-64bit.zip
 ADD $databricks_odbc_driver_url /tmp/simba_odbc.zip
